@@ -21,3 +21,26 @@ export const getGoals = async () => {
     return [];
   }
 };
+
+export const getUserById = async (userId) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/users/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching user:", error.response ? error.response.data : error.message);
+      return null;
+    }
+  };
+
+  export const createGoal = async (goal) => {
+    console.log(goal.data)
+    try {
+      const response = await axios.post(`${API_BASE_URL}/goals`, goal);
+      return response.data;
+    } catch (error) {
+      console.error("Error creating goal:", error.response ? error.response.data : error.message);
+      return null;
+    }
+  };
+  
+  
