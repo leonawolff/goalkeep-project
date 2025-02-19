@@ -1,18 +1,3 @@
-// package com.leonawolff.goalkeep;
-
-// import org.springframework.boot.SpringApplication;
-// import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-// @SpringBootApplication
-// public class GoalKeepApplication {
-
-// 	public static void main(String[] args) {
-// 		SpringApplication.run(GoalKeepApplication.class, args);
-// 	}
-
-// }
-
-
 package com.leonawolff.goalkeep;
 
 import com.leonawolff.goalkeep.models.User;
@@ -24,12 +9,32 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import java.time.LocalDate;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 @SpringBootApplication
 public class GoalKeepApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(GoalKeepApplication.class, args);
+    }
+
+    @Configuration
+    public class CorsConfig {
+        @Bean
+        public WebMvcConfigurer corsConfigurer() {
+            return new WebMvcConfigurer() {
+                @Override
+                public void addCorsMappings(CorsRegistry registry) {
+                    registry.addMapping("/api/**")
+                            .allowedOrigins("http://localhost:5173")
+                            .allowedMethods("GET", "POST", "PUT", "DELETE")
+                            .allowCredentials(true);
+                }
+            };
+        }
     }
 
     // @Bean
@@ -58,3 +63,17 @@ public class GoalKeepApplication {
     //     };
     // }
 }
+
+// package com.leonawolff.goalkeep;
+
+// import org.springframework.boot.SpringApplication;
+// import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+// @SpringBootApplication
+// public class GoalKeepApplication {
+
+// 	public static void main(String[] args) {
+// 		SpringApplication.run(GoalKeepApplication.class, args);
+// 	}
+
+// }
