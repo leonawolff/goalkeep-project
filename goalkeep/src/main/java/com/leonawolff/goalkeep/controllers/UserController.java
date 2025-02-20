@@ -59,20 +59,28 @@ public class UserController {
         return ResponseEntity.ok(goals);
     }
 
-        // Update an existing user
-        @PutMapping("/{id}")
-        public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
-            Optional<User> existingUser = userService.getUserById(id);
-            if (existingUser.isPresent()) {
-                User user = existingUser.get();
-                user.setUsername(updatedUser.getUsername());
-                user.setEmail(updatedUser.getEmail());
-                user.setPassword(updatedUser.getPassword());  // Consider pre save encryption
-                userService.saveUser(user);
-                return ResponseEntity.ok(user);
-            }
-            return ResponseEntity.notFound().build();
-        }
+    // Update an existing user - new
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+        User updatedUser = userService.updateUser(id, user);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+        // Update an existing user - prev 
+        // @PutMapping("/{id}")
+        // public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        //     Optional<User> existingUser = userService.getUserById(id);
+        //     if (existingUser.isPresent()) {
+        //         User user = existingUser.get();
+        //         user.setUsername(updatedUser.getUsername());
+        //         user.setEmail(updatedUser.getEmail());
+        //         user.setPassword(updatedUser.getPassword());  // Consider pre save encryption
+        //         userService.saveUser(user);
+        //         return ResponseEntity.ok(user);
+        //     }
+        //     return ResponseEntity.notFound().build();
+        // }
 
         // Delete a user
         @DeleteMapping("/{id}")
