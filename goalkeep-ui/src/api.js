@@ -2,22 +2,31 @@ import axios from "axios";
 
 const API_BASE_URL = "http://localhost:8080/api"; // Points to local backend server
 
+
+/** ===========================
+ *   CREATE METHODS (POST)
+ *  =========================== */
+
+export const createGoal = async (goal) => {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/goals`, goal);
+      return response.data;
+    } catch (error) {
+      console.error("Error creating goal:", error.response ? error.response.data : error.message);
+      return null;
+    }
+  };
+
+/** ===========================
+ *   GET METHODS
+ *  =========================== */
+
 export const getUsers = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/users`);
     return response.data;
   } catch (error) {
     console.error("Error fetching users:", error);
-    return [];
-  }
-};
-
-export const getGoals = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/goals`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching goals:", error);
     return [];
   }
 };
@@ -32,15 +41,25 @@ export const getUserById = async (userId) => {
   }
 };
 
-export const createGoal = async (goal) => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/goals`, goal);
-    return response.data;
-  } catch (error) {
-    console.error("Error creating goal:", error.response ? error.response.data : error.message);
-    return null;
-  }
-};
+export const getGoals = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/goals`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching goals:", error);
+      return [];
+    }
+  };
+
+  export const getGoalById = async (goalId) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/goals/${goalId}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching goals:", error);
+      return [];
+    }
+  };
 
 /** ===========================
  *   UPDATE METHODS (PUT)
@@ -66,7 +85,7 @@ export const updateUser = async (userId, updatedUser) => {
 };
 
 /** ===========================
- *   DELETE METHODS (DELETE)
+ *   DELETE METHODS
  *  =========================== */
 export const deleteGoal = async (goalId) => {
   try {
